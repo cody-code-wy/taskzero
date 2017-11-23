@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email
   validates_uniqueness_of :email
-  validates :password, length: {minimum: 8}
+  validates :password, length: {minimum: 8}, allow_nil: true
   validate :email_valid?
 
   private

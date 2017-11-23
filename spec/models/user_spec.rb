@@ -34,6 +34,22 @@ RSpec.describe User, type: :model do
       user = FactoryBot.create(:user)
       expect(FactoryBot.build(:user, email: user.email)).to_not be_valid
     end
+    it 'should update without password and password confirmation' do
+      user = FactoryBot.create(:user)
+      expect { user.update(first_name: Faker::Name.first_name) }.to_not change { user.valid? }
+    end
+    it 'should be valid from db' do
+      user = FactoryBot.create(:user)
+      expect(User.find(user.id)).to be_valid
+    end
+    it 'should not have password from db' do
+      user = FactoryBot.create(:user)
+      expect(User.find(user.id).password).to be nil
+    end
+    it 'sholud not have password_confirmation from db' do
+      user = FactoryBot.create(:user)
+      expect(User.find(user.id).password_confirmation).to be nil
+    end
   end
 
   describe 'Relations' do
