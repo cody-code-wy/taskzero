@@ -21,8 +21,9 @@
 - TimeStamps
 - kind (enum {:normal, :appointment, :chore})
 - description
-- defered_date ( text )
-- delegation ( text )
+- deferred_date ( text )
+- delegate { text } (email, optional)
+- delegate_note { text }
 - complete
 - project_id
 - context_id
@@ -55,10 +56,10 @@ See (Schedulable)[https://github.com/benignware/schedulable]
 
 - Name
 - TimeStamps
-- context_id (parrent)
+- context_id (parent)
 - user_id
 
 #### Relations
 
-- Have Context (parrent)
+- Have Context (parent)
 - Belong to User
