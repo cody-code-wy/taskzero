@@ -13,22 +13,27 @@
 
   <div class="field">
     <%= f.label :first_name %>
-    <%= f.text_area :first_name %>
+    <%= f.text_field :first_name %>
   </div>
 
   <div class="field">
     <%= f.label :last_name %>
-    <%= f.text_area :last_name %>
+    <%= f.text_field :last_name %>
   </div>
 
   <div class="field">
     <%= f.label :email %>
-    <%= f.text_area :email %>
+    <%= f.text_field :email %>
   </div>
 
   <div class="field">
-    <%= f.label :password_digest %>
-    <%= f.text_area :password_digest %>
+    <%= f.label :password %>
+    <%= f.text_field :password%>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.text_field :password_confirmation%>
   </div>
 
   <div class="actions">

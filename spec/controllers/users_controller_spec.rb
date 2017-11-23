@@ -97,7 +97,10 @@ RSpec.describe UsersController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        { first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, password: '87654321', password_confirmation: '87654321' }
+        { first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: '87654321', password_confirmation: '87654321' }
+      }
+      let(:new_attributes_no_pass) {
+        { first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: '', password_confirmation: ''}
       }
 
       it "updates the requested user" do
@@ -110,7 +113,23 @@ RSpec.describe UsersController, type: :controller do
           user.first_name
         }.and change {
           user.last_name
+        }.and change {
+          user.email
         }
+      end
+
+      it "updates the requested user without changing password" do
+        user = User.create! valid_attributes
+        expect {
+          put :update, params: {id: user.to_param, user: new_attributes_no_pass}, session: valid_session
+        }.to change {
+          user.reload; user.first_name
+        }.and change {
+          user.last_name
+        }.and change {
+          user.email
+        }
+        expect(user.authenticate('12345678')).to be_truthy
       end
 
       it "redirects to the user" do
