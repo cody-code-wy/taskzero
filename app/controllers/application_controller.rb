@@ -7,4 +7,5 @@ class ApplicationController < ActionController::Base
     User.find_by_id(session[:user_id])
   end
 
+  helper_method :logged_in?
 end

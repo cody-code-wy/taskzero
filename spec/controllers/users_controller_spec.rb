@@ -72,9 +72,9 @@ RSpec.describe UsersController, type: :controller do
         }.to change(User, :count).by(1)
       end
 
-      it "redirects to the created user" do
+      it "redirects to the root url" do
         post :create, params: {user: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(User.last)
+        expect(response).to redirect_to('/')
       end
     end
 

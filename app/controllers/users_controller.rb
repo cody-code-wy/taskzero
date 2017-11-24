@@ -22,7 +22,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'Thank you for signing up for Task Zero!' }
+        session[:user_id] = @user.id
+        format.html { redirect_to '/', notice: 'Thank you for signing up for Task Zero!' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }

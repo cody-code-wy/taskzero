@@ -9,6 +9,25 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="header">
+      <div id="user_header">
+        <% if logged_in? %>
+          <span class="greeter">Hello <%= logged_in?.first_name %></span>
+          <%= link_to 'Logout', logout_path, class: 'logout' %>
+        <% else %>
+          <span class="greeter">Sign Up, or Login to get started</span>
+          <%= link_to 'Sign Up', new_user_path, class: 'sign_up' %>
+          <%= link_to 'Log In', login_path, class: 'log_in' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="content">
+      <div class="banners">
+        <% flash.each do |type,text| %>
+          <div class="<%= type %>"><%= text %></div>
+        <% end %>
+      </div>
+      <%= yield %>
+    </div>
   </body>
 </html>
