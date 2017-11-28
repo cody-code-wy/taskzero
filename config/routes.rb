@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contexts
   get '/', to: 'welcome#index'
 
   get '/login', to: 'sessions#new'

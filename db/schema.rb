@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171123032803) do
+ActiveRecord::Schema.define(version: 20171128134047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contexts", force: :cascade do |t|
+    t.integer  "context_id"
+    t.text     "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["context_id"], name: "index_contexts_on_context_id", using: :btree
+    t.index ["user_id"], name: "index_contexts_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.text     "first_name"
@@ -24,4 +34,6 @@ ActiveRecord::Schema.define(version: 20171123032803) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "contexts", "contexts"
+  add_foreign_key "contexts", "users"
 end
