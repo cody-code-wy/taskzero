@@ -20,13 +20,13 @@ RSpec.feature "Sessions", type: :feature do
       expect(page).to_not have_selector '#user_header .sign_up'
       expect(page).to_not have_selector '#user_header .log_in'
     end
-    pending 'should not allow them to access user#new' do
+    it 'should not allow them to access user#new' do
       visit new_user_path
       expect(current_path).to eq '/'
     end
-    pending 'should not allow them to access user#create' do
-      page.driver.post(users_path)
-      expect(ucrrent_path).to eq '/'
+    it 'should not allow them to access user#create' do
+      page.driver.post(user_path)
+      expect(current_path).to eq user_path
     end
   end
   describe 'logged out' do

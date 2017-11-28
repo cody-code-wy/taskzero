@@ -4,20 +4,24 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def show
+    authorize @user
   end
 
   # GET /user/new
   def new
+    authorize User
     @user = User.new
   end
 
   # GET /user/edit
   def edit
+    authorize @user
   end
 
   # POST /user
   # POST /user.json
   def create
+    authorize User
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -35,6 +39,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /user
   # PATCH/PUT /user.json
   def update
+    authorize @user
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -49,6 +54,7 @@ class UsersController < ApplicationController
   # DELETE /user
   # DELETE /user.json
   def destroy
+    authorize @user
     @user.destroy
     respond_to do |format|
       format.html { redirect_to '/', notice: 'User was successfully destroyed.' }
