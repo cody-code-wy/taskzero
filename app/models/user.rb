@@ -8,6 +8,8 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 8}, allow_nil: true
   validate :email_valid?
 
+  model_name.instance_variable_set(:@route_key, 'user')
+
   private
 
   def email_valid?

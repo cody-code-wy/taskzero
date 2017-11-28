@@ -53,9 +53,18 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Relations' do
-    it 'should have Tasks'
-    it 'should have Projects'
-    it 'should have Contexts'
+    before do
+      @user = FactoryBot.build(:user, :with_tasks, :with_projects, :with_contexts)
+    end
+    pending 'should have Tasks' do
+      expect(@user.tasks.first).to be_a Task
+    end
+    pending 'should have Projects' do
+      expect(@user.projects.first).to be_a Project
+    end
+    pending 'should have Contexts' do
+      expect(@user.contexts.first).to be_a Context
+    end
   end
 
   describe 'has_secure_password' do

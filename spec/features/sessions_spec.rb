@@ -10,7 +10,7 @@ RSpec.feature "Sessions", type: :feature do
       fill_in 'password', with: @password
       click_button 'Log In'
     end
-    it 'should display the users name' do
+    it 'should display the user\'s name' do
       expect(page).to have_content @user.first_name
     end
     it 'should have the logout button' do
@@ -20,13 +20,13 @@ RSpec.feature "Sessions", type: :feature do
       expect(page).to_not have_selector '#user_header .sign_up'
       expect(page).to_not have_selector '#user_header .log_in'
     end
-    pending 'should not allow them to access user#new' do
+    it 'should not allow them to access user#new' do
       visit new_user_path
       expect(current_path).to eq '/'
     end
-    pending 'should not allow them to access user#create' do
-      page.driver.post(users_path)
-      expect(ucrrent_path).to eq '/'
+    it 'should not allow them to access user#create' do
+      page.driver.post(user_path)
+      expect(current_path).to eq user_path
     end
   end
   describe 'logged out' do
@@ -151,7 +151,7 @@ RSpec.feature "Sessions", type: :feature do
           expect {
             click_button 'Create User'
             expect(page.status_code).to eq 200 #:ok
-            expect(current_path).to eq users_path
+            expect(current_path).to eq user_path
             expect(page).to have_content 'New User'
           }.to_not change { User.all.count }
         end
@@ -170,7 +170,7 @@ RSpec.feature "Sessions", type: :feature do
           expect {
             click_button 'Create User'
             expect(page.status_code).to eq 200 #:ok
-            expect(current_path).to eq users_path
+            expect(current_path).to eq user_path
             expect(page).to have_content 'New User'
           }.to_not change { User.all.count }
         end
@@ -189,7 +189,7 @@ RSpec.feature "Sessions", type: :feature do
           expect {
             click_button 'Create User'
             expect(page.status_code).to eq 200 #:ok
-            expect(current_path).to eq users_path
+            expect(current_path).to eq user_path
             expect(page).to have_content 'New User'
           }.to_not change { User.all.count }
         end
@@ -208,7 +208,7 @@ RSpec.feature "Sessions", type: :feature do
           expect {
             click_button 'Create User'
             expect(page.status_code).to eq 200 #:ok
-            expect(current_path).to eq users_path
+            expect(current_path).to eq user_path
             expect(page).to have_content 'New User'
           }.to_not change { User.all.count }
         end
@@ -228,7 +228,7 @@ RSpec.feature "Sessions", type: :feature do
           expect {
             click_button 'Create User'
             expect(page.status_code).to eq 200 #:ok
-            expect(current_path).to eq users_path
+            expect(current_path).to eq user_path
             expect(page).to have_content 'New User'
           }.to_not change { User.all.count }
         end
@@ -249,7 +249,7 @@ RSpec.feature "Sessions", type: :feature do
           expect {
             click_button 'Create User'
             expect(page.status_code).to eq 200 #:ok
-            expect(current_path).to eq users_path
+            expect(current_path).to eq user_path
             expect(page).to have_content 'New User'
           }.to_not change { User.all.count }
         end
@@ -268,7 +268,7 @@ RSpec.feature "Sessions", type: :feature do
           expect {
             click_button 'Create User'
             expect(page.status_code).to eq 200 #:ok
-            expect(current_path).to eq users_path
+            expect(current_path).to eq user_path
             expect(page).to have_content 'New User'
           }.to_not change { User.all.count }
         end
