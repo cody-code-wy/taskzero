@@ -5,7 +5,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    not @user
+    !@user
   end
 
   def new?
