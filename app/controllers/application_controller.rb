@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:warning] = "You are not authorized"
+    flash[:warning] = 'You are not authorized'
     redirect_to(request.referrer || '/')
   end
 
