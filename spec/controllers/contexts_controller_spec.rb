@@ -29,29 +29,34 @@ RSpec.describe ContextsController, type: :controller do
   # Context. As you add validations to Context, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { name: Faker::Hobbit.location }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: "" }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ContextsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { if @user
+                          return { user_id: @user.id }
+                        else
+                          return { user_id: FactoryBot.create(:user).id }
+                        end }
 
   describe "GET #index" do
     it "returns a success response" do
-      context = Context.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :index, session: valid_session
       expect(response).to be_success
+      expect(response).to have_http_status :ok
     end
   end
 
   describe "GET #show" do
     it "returns a success response" do
-      context = Context.create! valid_attributes
+      context = FactoryBot.create(:context)
+      @user = context.user
       get :show, params: {id: context.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -66,7 +71,8 @@ RSpec.describe ContextsController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      context = Context.create! valid_attributes
+      context = FactoryBot.create(:context)
+      @user = context.user
       get :edit, params: {id: context.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -74,10 +80,18 @@ RSpec.describe ContextsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
+      before do
+        @user = FactoryBot.create(:user)
+      end
       it "creates a new Context" do
         expect {
           post :create, params: {context: valid_attributes}, session: valid_session
         }.to change(Context, :count).by(1)
+      end
+
+      it "create a new Context owned by current user" do
+        post :create, params: {context: valid_attributes}, session: valid_session
+        expect(Context.last.user).to eq @user
       end
 
       it "redirects to the created context" do
@@ -95,45 +109,72 @@ RSpec.describe ContextsController, type: :controller do
   end
 
   describe "PUT #update" do
+    before do
+      @context = FactoryBot.create(:context)
+      @user = @context.user
+    end
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: Faker::Hobbit.location }
       }
 
       it "updates the requested context" do
-        context = Context.create! valid_attributes
-        put :update, params: {id: context.to_param, context: new_attributes}, session: valid_session
-        context.reload
-        skip("Add assertions for updated state")
+        expect {
+          put :update, params: {id: @context.to_param, context: new_attributes}, session: valid_session
+        }.to change { @context.reload; @context.name}
       end
 
       it "redirects to the context" do
-        context = Context.create! valid_attributes
-        put :update, params: {id: context.to_param, context: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(context)
+        put :update, params: {id: @context.to_param, context: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(@context)
+      end
+    end
+
+    context "with new userid" do
+      let(:new_attributes) {
+        { user_id: FactoryBot.create(:user).id }
+      }
+      it "should not change user" do
+        expect {
+          put :update, params: {id: @context.to_param, context: new_attributes}, session: valid_session
+        }.to_not change {
+          @context.reload; @context.user
+        }
+      end
+      it "sohuld redirect to the context" do
+        put :update, params: {id: @context.to_param, context: new_attributes}, session: valid_session
+        expect(response).to redirect_to(@context)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        context = Context.create! valid_attributes
-        put :update, params: {id: context.to_param, context: invalid_attributes}, session: valid_session
+        put :update, params: {id: @context.to_param, context: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
     end
   end
 
   describe "DELETE #destroy" do
+    before do
+      @context = FactoryBot.create(:context)
+      @user = @context.user
+    end
     it "destroys the requested context" do
-      context = Context.create! valid_attributes
       expect {
-        delete :destroy, params: {id: context.to_param}, session: valid_session
+        delete :destroy, params: {id: @context.to_param}, session: valid_session
       }.to change(Context, :count).by(-1)
     end
 
+    it "Does not destroy context with wrong user" do
+      @user = FactoryBot.create(:user)
+      expect {
+        delete :destroy, params: {id: @context.to_param}, session: valid_session
+      }.to_not change(Context, :count)
+    end
+
     it "redirects to the contexts list" do
-      context = Context.create! valid_attributes
-      delete :destroy, params: {id: context.to_param}, session: valid_session
+      delete :destroy, params: {id: @context.to_param}, session: valid_session
       expect(response).to redirect_to(contexts_url)
     end
   end
