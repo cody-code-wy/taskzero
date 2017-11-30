@@ -62,7 +62,7 @@ RSpec.describe User, type: :model do
     pending 'should have Projects' do
       expect(@user.projects.first).to be_a Project
     end
-    pending 'should have Contexts' do
+    it 'should have Contexts' do
       expect(@user.contexts.first).to be_a Context
     end
   end
