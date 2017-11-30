@@ -1,1 +1,1 @@
-json.partial! "contexts/context", context: @context
+json.partial! 'contexts/context', context: @context
