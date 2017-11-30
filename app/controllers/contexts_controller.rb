@@ -76,6 +76,6 @@ class ContextsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def context_params
-      params.require(:context).permit(:name).merge({user: current_user})
+      params.require(:context).permit(:name).merge(user: current_user)
     end
 end

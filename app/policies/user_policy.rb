@@ -1,11 +1,10 @@
 class UserPolicy < ApplicationPolicy
-
   def show?
     @user == @record
   end
 
   def create?
-    not @user
+    !@user
   end
 
   def new?

@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email
   validates_uniqueness_of :email
-  validates :password, length: {minimum: 8}, allow_nil: true
+  validates :password, length: { minimum: 8 }, allow_nil: true
   validate :email_valid?
 
   has_many :contexts
@@ -15,10 +15,8 @@ class User < ApplicationRecord
   private
 
   def email_valid?
-    begin
-      Mail::Address.new(email)
-    rescue
-      errors.add(:email, 'Invalid Email Address')
-    end
+    Mail::Address.new(email)
+  rescue
+    errors.add(:email, 'Invalid Email Address')
   end
 end

@@ -63,6 +63,7 @@ class UsersController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = current_user
@@ -70,11 +71,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      parameters = params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
-      if parameters[:password]== '' and parameters[:password_confirmation] == ''
-        parameters.delete(:password)
-        parameters.delete(:password_confirmation)
-      end
-      return parameters
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 end
