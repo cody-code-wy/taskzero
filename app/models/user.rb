@@ -15,10 +15,8 @@ class User < ApplicationRecord
   private
 
   def email_valid?
-    begin
-      Mail::Address.new(email)
-    rescue
-      errors.add(:email, 'Invalid Email Address')
-    end
+    Mail::Address.new(email)
+  rescue
+    errors.add(:email, 'Invalid Email Address')
   end
 end
