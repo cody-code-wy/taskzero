@@ -19,7 +19,10 @@ RSpec.configure do |config|
   require 'simplecov'
 
   # Simple Cov will produce code coverage results
-  SimpleCov.start 'rails'
+  SimpleCov.start 'rails' do
+    add_filter 'app/channels/application_cable/channel.rb'
+    add_filter 'app/channels/application_cable/connection.rb'
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
