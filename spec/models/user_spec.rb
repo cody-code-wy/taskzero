@@ -1,8 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'should have a valid factory' do
-    expect(FactoryBot.build(:user)).to be_valid
+  describe 'Factory' do
+    it 'should have a valid factory' do
+      expect(FactoryBot.build(:user)).to be_valid
+    end
+    it 'should have a valid factory with_tasks' do
+      expect(FactoryBot.build(:user, :with_tasks)).to be_valid
+    end
+    it 'should have a valid factory with_projects' do
+      expect(FactoryBot.build(:user, :with_projects)).to be_valid
+    end
+    it 'should have a valid factory with_contexts' do
+      expect(FactoryBot.build(:user, :with_contexts)).to be_valid
+      #also context there is a branch
+      expect(FactoryBot.create(:user, :with_contexts)).to be_valid
+    end
+    it 'should have a valid factory with all traits' do
+      expect(FactoryBot.build(:user, :with_tasks, :with_projects, :with_contexts)).to be_valid
+    end
   end
 
   describe 'Validations' do
