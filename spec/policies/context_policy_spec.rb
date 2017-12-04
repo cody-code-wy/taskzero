@@ -47,9 +47,6 @@ RSpec.describe ContextPolicy do
       end
     end
     context 'logged in' do 
-      before do
-        user = FactoryBot.build(:user)
-      end
       it 'should allow access' do
         expect(subject).to permit(user, Context)
       end
