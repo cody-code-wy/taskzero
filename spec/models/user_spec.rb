@@ -75,7 +75,7 @@ RSpec.describe User, type: :model do
     pending 'should have Tasks' do
       expect(@user.tasks.first).to be_a Task
     end
-    pending 'should have Projects' do
+    it 'should have Projects' do
       expect(@user.projects.first).to be_a Project
     end
     it 'should have Contexts' do

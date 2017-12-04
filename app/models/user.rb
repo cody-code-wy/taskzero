@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validate :email_valid?
 
   has_many :contexts
+  has_many :projects
 
   model_name.instance_variable_set(:@route_key, 'user')
 

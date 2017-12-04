@@ -11,7 +11,7 @@ FactoryBot.define do
     end
 
     trait :with_projects do
-
+      projects { build_list :project, 3, user: nil }
     end
 
     trait :with_contexts do
