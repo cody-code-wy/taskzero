@@ -46,7 +46,7 @@ RSpec.describe "Projects", type: :request do
           post projects_path params: { project: valid_attributes }
           expect(Project.last.user).to eq @user
         end
-        it 'redirects to the created context' do
+        it 'redirects to the created project' do
           post projects_path params: { project: valid_attributes }
           expect(response).to redirect_to(Project.last)
         end
