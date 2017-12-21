@@ -7,7 +7,7 @@ FactoryBot.define do
       context { FactoryBot.build(:context) }
     end
     trait :with_contexts do
-      contexts { [FactoryBot.build(:context), FactoryBot.build(:context)] }
+      contexts { build_list :context, 3 }
     end
   end
 end
