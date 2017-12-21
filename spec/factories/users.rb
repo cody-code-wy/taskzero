@@ -15,12 +15,7 @@ FactoryBot.define do
     end
 
     trait :with_contexts do
-      after :create do |user|
-        create_list :context, 5, user: user
-      end
-      after :build do |user|
-        user.contexts = build_list :context, 5, user: user
-      end
+      contexts { build_list :context, 3, user: nil }
     end
   end
 end
