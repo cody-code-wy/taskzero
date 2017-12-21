@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   has_many :contexts
   has_many :projects
+  has_many :tasks
 
   model_name.instance_variable_set(:@route_key, 'user')
 

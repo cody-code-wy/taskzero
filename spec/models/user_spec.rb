@@ -70,9 +70,9 @@ RSpec.describe User, type: :model do
 
   describe 'Relations' do
     before do
-      @user = FactoryBot.build(:user, :with_tasks, :with_projects, :with_contexts)
+      @user = FactoryBot.build(:user, :with_tasks, :with_projects, :with_contexts, :with_tasks)
     end
-    pending 'should have Tasks' do
+    it 'should have Tasks' do
       expect(@user.tasks.first).to be_a Task
     end
     it 'should have Projects' do

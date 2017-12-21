@@ -7,7 +7,7 @@ FactoryBot.define do
     password_confirmation { password }
 
     trait :with_tasks do
-
+      tasks { build_list :task, 3, user: nil }
     end
 
     trait :with_projects do
