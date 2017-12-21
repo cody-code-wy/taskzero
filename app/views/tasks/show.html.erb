@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @task.name %>
+</p>
+
+<p>
+  <strong>Kind:</strong>
+  <%= @task.kind %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<p>
+  <strong>Deferred date:</strong>
+  <%= @task.deferred_date %>
+</p>
+
+<p>
+  <strong>Delegate:</strong>
+  <%= @task.delegate %>
+</p>
+
+<p>
+  <strong>Delegate note:</strong>
+  <%= @task.delegate_note %>
+</p>
+
+<p>
+  <strong>Complete:</strong>
+  <%= @task.complete %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @task.project %>
+</p>
+
+<p>
+  <strong>Context:</strong>
+  <%= @task.context %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @task.user %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

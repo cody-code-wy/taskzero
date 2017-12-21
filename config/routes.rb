@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tasks
   resources :projects
   resources :contexts
   get '/', to: 'welcome#index'
